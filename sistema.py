@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 treinos = []
 exercicios = []
-
+competicoes = []
 
 def adicionar_treino(treinos, nome, tipo, data, duracao, intensidade):
     treino = {
@@ -17,7 +17,6 @@ def listar_treinos(treinos):
         print("Nenhum treino cadastrado")
     else:
         for t in treinos:
-
             print(f"ID         : {t['id']}")
             print(f"Nome       : {t['nome']}")
             print(f"Tipo       : {t['tipo']}")
@@ -36,7 +35,6 @@ def treino_por_id(treinos, id):
             print(f"Data       : {t['data']}")
             print(f"Duração    : {t['duracao']} minutos")
             print(f"Intensidade: {t['intensidade']}")
-
             return
     print("não existe Treino com esse ID ")
 
@@ -79,7 +77,6 @@ def listar_exercicio(exercicios):
         print("Nenhum exercício cadastrado.")
     else:
         for e in exercicios:
-
             print(f"ID         : {e['id']}")
             print(f"Nome       : {e['nome']}")
             print(f"Tempo      : {e['tempo']}")
@@ -101,7 +98,6 @@ def exercicio_por_id(exercicios, id):
             print(f"Repetições : {e['repeticoes']}")
             print("-" * 40)
             return
-
     print("Não existe exercício com esse ID.")
 
 
@@ -125,8 +121,43 @@ def excluir_exercicio(exercicios, id):
     return "Não existe exercício com esse ID."
 
 
+
+def cadastrar_competicao(competicoes, competicao, data, local, categoria):
+    competicao = {
+        "id": len(competicoes) + 1,
+        "local": local,
+        "categoria": categoria,
+        "data": data
+    }
+
+
+def listar_competicoes(competicoes):
+    if len(competicoes) == 0:
+        print("Nenhuma competição cadastrada")
+    else:
+        for t in competicoes:
+            print(f"id         : {t['id']}")
+            print(f"local      : {t['local']}")
+            print(f"categoria  : {t['categoria']}")
+            print(f"Data       : {t['data']}")
+
+
+def competicao_por_id(competicoes, id):
+    for i in range(len(competicoes)):
+        if competicoes[i]["id"] == id:
+            e = competicoes[i]
+            print("-" * 40)
+            print(f"ID         : {e['id']}")
+            print(f"local       : {e['local']}")
+            print(f"categoria   : {e['categoria']}")
+            print(f"data  : {e['data']}")
+            print("-" * 40)
+            return
+    print("Não existe competição com esse ID. ")
+
+
 while True:
-    print("1- Adicionar Treino\n2- Listar treinos\n3- Buscar treino Por Id\n4- Editar treino\n5- Excluir Treino\n6- Adicionar Exercício\n7- Listar Exercícios\n8- Buscar Exercício por ID\n9- Editar Exercício\n10- Excluir Exercício\n0- ENCERRAR ")
+    print("1- Adicionar Treino\n2- Listar treinos\n3- Buscar treino Por Id\n4- Editar treino\n5- Excluir Treino\n6- Adicionar Exercício\n7- Listar Exercícios\n8- Buscar Exercício por ID\n9- Editar Exercício\n10- Excluir Exercício\n11- Adicionar Competição\n 12- listar Competições\n 0- ENCERRAR ")
 
     try:
         escolha_menu = int(input("Escolha uma opção: "))
@@ -134,6 +165,7 @@ while True:
         print("Digite apenas números!")
         input()
         continue
+
     if escolha_menu == 1:
         nome = input("Digite o nome do treino: ")
         tipo = input("Digite o tipo do treino: ")
@@ -150,7 +182,7 @@ while True:
                 break
             except ValueError:
                 print("Digite apenas números")
-        intensidade = (input("Digite a intensidade do treino: "))
+        intensidade = input("Digite a intensidade do treino: ")
         print(adicionar_treino(treinos, nome, tipo, data, duracao, intensidade))
 
     elif escolha_menu == 2:
@@ -182,16 +214,17 @@ while True:
                 except ValueError:
                     print("Digite apenas números")
             intensidade = input("Digite a nova intensidade : ")
-            print(editar_treino(treinos, id, nome,
-                  tipo, data, duracao, intensidade))
+            print(editar_treino(treinos, id, nome, tipo, data, duracao, intensidade))
         except ValueError:
             print("Digite apenas números")
+
     elif escolha_menu == 5:
         try:
             id = int(input("Digite o id do treino que você deseja excluir: "))
             print(excluir_treinos(treinos, id))
         except ValueError:
             print("Digite apenas números")
+
     elif escolha_menu == 0:
         break
 
@@ -221,8 +254,7 @@ while True:
                 break
             except ValueError:
                 print("Digite apenas números")
-        print(adicionar_exercicio(exercicios, nome,
-              tempo, distancia, carga, repeticoes))
+        print(adicionar_exercicio(exercicios, nome, tempo, distancia, carga, repeticoes))
 
     elif escolha_menu == 7:
         listar_exercicio(exercicios)
@@ -233,6 +265,7 @@ while True:
             print(exercicio_por_id(exercicios, id))
         except ValueError:
             print("Digite apenas números")
+
     elif escolha_menu == 9:
         try:
             id = int(input("Digite o id do exercício que deseja editar: "))
@@ -245,8 +278,7 @@ while True:
                     print("Digite apenas números")
             while True:
                 try:
-                    distancia = int(
-                        input("Digite a nova distância em metros: "))
+                    distancia = int(input("Digite a nova distância em metros: "))
                     break
                 except ValueError:
                     print("Digite apenas números")
@@ -262,10 +294,10 @@ while True:
                     break
                 except ValueError:
                     print("Digite apenas números")
-            print(editar_exercicio(exercicios, id, nome,
-                  tempo, distancia, carga, repeticoes))
+            print(editar_exercicio(exercicios, id, nome, tempo, distancia, carga, repeticoes))
         except ValueError:
             print("Digite apenas números")
+
     elif escolha_menu == 10:
         try:
             id = int(input("Digite o id do exercício que deseja excluir: "))
@@ -273,6 +305,40 @@ while True:
         except ValueError:
             print("Digite apenas números")
 
-    else:
-        print("Opção inválida. Digite outra opção ")
+    elif escolha_menu == 11:
 
+
+        local = input("Digite o Local da competição: ")
+        categoria = input("Digite a categoria da competição: ")
+         while True:
+
+
+
+            data = input("Digite a data da competição (Dia/Mês/Ano): ")
+            try:
+
+
+                 datetime.strptime(data, "%d/%m/%Y")
+            break
+            except ValueError:
+        print("\n"competicoes)
+
+
+                print("Formato inválido. Tente novamente.")
+        print(cadastrar_competicao(competicoes, None, data, local, categoria))
+    elif escolha_menu == 12: 
+        listar_competicoes(competicoes)
+    
+    
+    elif escolha_menu == 13:
+
+        try:
+            id = int(input("Digite o ID da competição: "))
+            competicao_por_id(competicoes, id)
+        except ValueError:
+            print("Digite apenas números")
+
+
+
+    else:
+        print("Opção inválida. Digite outra opção.")
