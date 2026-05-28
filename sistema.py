@@ -121,7 +121,6 @@ def excluir_exercicio(exercicios, id):
     return "Não existe exercício com esse ID."
 
 
-
 def cadastrar_competicao(competicoes, competicao, data, local, categoria):
     competicao = {
         "id": len(competicoes) + 1,
@@ -129,6 +128,8 @@ def cadastrar_competicao(competicoes, competicao, data, local, categoria):
         "categoria": categoria,
         "data": data
     }
+    competicoes.append(competicao)
+    return "Competição adicionada com sucesso!"
 
 
 def listar_competicoes(competicoes):
@@ -150,14 +151,14 @@ def competicao_por_id(competicoes, id):
             print(f"ID         : {e['id']}")
             print(f"local       : {e['local']}")
             print(f"categoria   : {e['categoria']}")
-            print(f"data  : {e['data']}")
+            print(f"data        : {e['data']}")
             print("-" * 40)
             return
     print("Não existe competição com esse ID. ")
 
 
 while True:
-    print("1- Adicionar Treino\n2- Listar treinos\n3- Buscar treino Por Id\n4- Editar treino\n5- Excluir Treino\n6- Adicionar Exercício\n7- Listar Exercícios\n8- Buscar Exercício por ID\n9- Editar Exercício\n10- Excluir Exercício\n11- Adicionar Competição\n 12- listar Competições\n 0- ENCERRAR ")
+    print("1- Adicionar Treino\n2- Listar treinos\n3- Buscar treino Por Id\n4- Editar treino\n5- Excluir Treino\n6- Adicionar Exercício\n7- Listar Exercícios\n8- Buscar Exercício por ID\n9- Editar Exercício\n10- Excluir Exercício\n11- Adicionar Competição\n12- listar Competições\n0- ENCERRAR ")
 
     try:
         escolha_menu = int(input("Escolha uma opção: "))
@@ -306,39 +307,26 @@ while True:
             print("Digite apenas números")
 
     elif escolha_menu == 11:
-
-
         local = input("Digite o Local da competição: ")
         categoria = input("Digite a categoria da competição: ")
-         while True:
-
-
-
+        while True:
             data = input("Digite a data da competição (Dia/Mês/Ano): ")
             try:
-
-
-                 datetime.strptime(data, "%d/%m/%Y")
-            break
+                datetime.strptime(data, "%d/%m/%Y")
+                break
             except ValueError:
-        print("\n"competicoes)
-
-
                 print("Formato inválido. Tente novamente.")
         print(cadastrar_competicao(competicoes, None, data, local, categoria))
-    elif escolha_menu == 12: 
-        listar_competicoes(competicoes)
-    
-    
-    elif escolha_menu == 13:
 
+    elif escolha_menu == 12:
+        listar_competicoes(competicoes)
+
+    elif escolha_menu == 13:
         try:
             id = int(input("Digite o ID da competição: "))
             competicao_por_id(competicoes, id)
         except ValueError:
             print("Digite apenas números")
-
-
 
     else:
         print("Opção inválida. Digite outra opção.")
