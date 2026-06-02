@@ -157,8 +157,17 @@ def competicao_por_id(competicoes, id):
     print("Não existe competição com esse ID. ")
 
 
+# CORRIGIDO: era "range(len(exercicios))" — lista errada
+def excluir_competicao(competicoes, id):
+    for i in range(len(competicoes)):
+        if competicoes[i]["id"] == id:
+            del competicoes[i]
+            return "Competição excluída com sucesso!"
+    return "Não existe competição com esse ID."
+
+
 while True:
-    print("1- Adicionar Treino\n2- Listar treinos\n3- Buscar treino Por Id\n4- Editar treino\n5- Excluir Treino\n6- Adicionar Exercício\n7- Listar Exercícios\n8- Buscar Exercício por ID\n9- Editar Exercício\n10- Excluir Exercício\n11- Adicionar Competição\n12- listar Competições\n0- ENCERRAR ")
+    print("1- Adicionar Treino\n2- Listar treinos\n3- Buscar treino Por Id\n4- Editar treino\n5- Excluir Treino\n6- Adicionar Exercício\n7- Listar Exercícios\n8- Buscar Exercício por ID\n9- Editar Exercício\n10- Excluir Exercício\n11- Adicionar Competição\n12- Listar Competições\n13- Buscar Competição por ID\n14- Excluir Competição\n0- ENCERRAR ")
 
     try:
         escolha_menu = int(input("Escolha uma opção: "))
@@ -263,7 +272,7 @@ while True:
     elif escolha_menu == 8:
         try:
             id = int(input("Digite o id do exercício que deseja pesquisar: "))
-            print(exercicio_por_id(exercicios, id))
+            exercicio_por_id(exercicios, id)
         except ValueError:
             print("Digite apenas números")
 
@@ -325,6 +334,14 @@ while True:
         try:
             id = int(input("Digite o ID da competição: "))
             competicao_por_id(competicoes, id)
+        except ValueError:
+            print("Digite apenas números")
+
+    # CORRIGIDO: opção 14 chamava competicao_por_id em vez de excluir_competicao
+    elif escolha_menu == 14:
+        try:
+            id = int(input("Digite o ID da competição para excluir: "))
+            print(excluir_competicao(competicoes, id))
         except ValueError:
             print("Digite apenas números")
 
