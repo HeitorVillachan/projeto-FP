@@ -1,2 +1,2 @@
 # projeto-FP
-CRUD
+CRUD de treinos HYROX
