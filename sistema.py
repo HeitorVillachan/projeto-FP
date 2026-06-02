@@ -163,117 +163,17 @@ def competicao_por_id(competicoes, id):
     print("Não existe competição com esse ID.")
 
 
-def resumo_evolucao(treinos, exercicios):
-    if len(treinos) == 0 and len(exercicios) == 0:
-        print("Nenhum dado registrado.")
-        return
+# CORRIGIDO: era "range(len(exercicios))" — lista errada
+def excluir_competicao(competicoes, id):
+    for i in range(len(competicoes)):
+        if competicoes[i]["id"] == id:
+            del competicoes[i]
+            return "Competição excluída com sucesso!"
+    return "Não existe competição com esse ID."
 
-    print("===== RESUMO DE EVOLUÇÃO =====")
 
-    if len(treinos) > 0:
-        print(f"Total de treinos: {len(treinos)}")
-
-        tipos = {}
-        for t in treinos:
-            if t["tipo"] in tipos:
-                tipos[t["tipo"]] += 1
-            else:
-                tipos[t["tipo"]] = 1
-        for tipo, quantidade in tipos.items():
-            print(f"{tipo}: {quantidade} treino(s)")
-
-        total_duracao = 0
-        for t in treinos:
-            total_duracao += t["duracao"]
-        print(f"Duração média dos treinos: {total_duracao / len(treinos):.1f} minutos")
-
-        datas = []
-        for t in treinos:
-            try:
-                datas.append((datetime.strptime(t["data"], "%d/%m/%Y"), t["nome"]))
-            except ValueError:
-                pass
-        if len(datas) > 0:
-            datas.sort()
-            print(f"Primeiro treino: {datas[0][1]} em {datas[0][0].strftime('%d/%m/%Y')}")
-            print(f"Ultimo treino: {datas[-1][1]} em {datas[-1][0].strftime('%d/%m/%Y')}")
-
-            data_inicio = datas[0][0]
-            data_fim = datas[-1][0]
-            diferenca_dias = (data_fim - data_inicio).days
-
-            if diferenca_dias > 0:
-                semanas = diferenca_dias / 7
-                meses = diferenca_dias / 30
-
-                frequencia_semanal = len(datas) / semanas
-                frequencia_mensal = len(datas) / meses
-
-                print(f"\nFrequência de treinos:")
-                print(f"  Período registrado   : {diferenca_dias} dia(s)")
-                print(f"  Média por semana     : {frequencia_semanal:.1f} treino(s)")
-                print(f"  Média por mês        : {frequencia_mensal:.1f} treino(s)")
-            else:
-                print(f"\nFrequência de treinos:")
-                print(f"  Todos os treinos foram registrados no mesmo dia.")
-
-    if len(exercicios) > 0:
-        grupos = {}
-        for e in exercicios:
-            if e["nome"] not in grupos:
-                grupos[e["nome"]] = []
-            try:
-                grupos[e["nome"]].append((datetime.strptime(e["data"], "%d/%m/%Y"), e))
-            except ValueError:
-                pass
-
-        print("\nEvolucao por exercicio:")
-        for nome, registros in grupos.items():
-            if len(registros) < 2:
-                continue
-            registros.sort()
-            primeiro = registros[0][1]
-            ultimo = registros[-1][1]
-
-            print(f"\n  {nome}")
-
-            data_inicio_ex = registros[0][0]
-            data_fim_ex = registros[-1][0]
-            diferenca_dias_ex = (data_fim_ex - data_inicio_ex).days
-            print(f"  Período: {diferenca_dias_ex} dia(s) ({data_inicio_ex.strftime('%d/%m/%Y')} até {data_fim_ex.strftime('%d/%m/%Y')})")
-
-            diff_carga = ultimo["carga"] - primeiro["carga"]
-            if diff_carga > 0:
-                print(f"  Carga: {primeiro['carga']} kg -> {ultimo['carga']} kg (+{diff_carga} kg)")
-            elif diff_carga < 0:
-                print(f"  Carga: {primeiro['carga']} kg -> {ultimo['carga']} kg ({diff_carga} kg)")
-            else:
-                print(f"  Carga: {primeiro['carga']} kg (sem alteracao)")
-
-            diff_tempo = ultimo["tempo"] - primeiro["tempo"]
-            if diff_tempo < 0:
-                print(f"  Tempo: {primeiro['tempo']} min -> {ultimo['tempo']} min (melhorou {abs(diff_tempo)} min)")
-            elif diff_tempo > 0:
-                print(f"  Tempo: {primeiro['tempo']} min -> {ultimo['tempo']} min (+{diff_tempo} min)")
-            else:
-                print(f"  Tempo: {primeiro['tempo']} min (sem alteracao)")
-
-            diff_rep = ultimo["repeticoes"] - primeiro["repeticoes"]
-            if diff_rep > 0:
-                print(f"  Repeticoes: {primeiro['repeticoes']} -> {ultimo['repeticoes']} (+{diff_rep})")
-            elif diff_rep < 0:
-                print(f"  Repeticoes: {primeiro['repeticoes']} -> {ultimo['repeticoes']} ({diff_rep})")
-            else:
-                print(f"  Repeticoes: {primeiro['repeticoes']} (sem alteracao)")
-
-            diff_dist = ultimo["distancia"] - primeiro["distancia"]
-            if diff_dist > 0:
-                print(f"  Distancia: {primeiro['distancia']} m -> {ultimo['distancia']} m (+{diff_dist} m)")
-            elif diff_dist < 0:
-                print(f"  Distancia: {primeiro['distancia']} m -> {ultimo['distancia']} m ({diff_dist} m)")
-            else:
-                print(f"  Distancia: {primeiro['distancia']} m (sem alteracao)")
-            print()
+while True:
+    print("1- Adicionar Treino\n2- Listar treinos\n3- Buscar treino Por Id\n4- Editar treino\n5- Excluir Treino\n6- Adicionar Exercício\n7- Listar Exercícios\n8- Buscar Exercício por ID\n9- Editar Exercício\n10- Excluir Exercício\n11- Adicionar Competição\n12- Listar Competições\n13- Buscar Competição por ID\n14- Excluir Competição\n0- ENCERRAR ")
 
 
 while True:
@@ -388,7 +288,7 @@ while True:
     elif escolha_menu == 8:
         try:
             id = int(input("Digite o id do exercício que deseja pesquisar: "))
-            print(exercicio_por_id(exercicios, id))
+            exercicio_por_id(exercicios, id)
         except ValueError:
             print("Digite apenas números")
 
@@ -457,6 +357,13 @@ while True:
         try:
             id = int(input("Digite o ID da competição: "))
             competicao_por_id(competicoes, id)
+        except ValueError:
+            print("Digite apenas números")
+            
+    elif escolha_menu == 14:
+        try:
+            id = int(input("Digite o ID da competição para excluir: "))
+            print(excluir_competicao(competicoes, id))
         except ValueError:
             print("Digite apenas números")
 
