@@ -336,8 +336,7 @@ while True:
             competicao_por_id(competicoes, id)
         except ValueError:
             print("Digite apenas números")
-
-    # CORRIGIDO: opção 14 chamava competicao_por_id em vez de excluir_competicao
+            
     elif escolha_menu == 14:
         try:
             id = int(input("Digite o ID da competição para excluir: "))
