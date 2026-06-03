@@ -1,17 +1,9 @@
 import os
-<<<<<<< HEAD
-=======
-os.system("cls")
->>>>>>> 5b2b0cf8721582556c5001d29eca11389336a3a1
 from datetime import datetime
 treinos = []
 exercicios = []
 competicoes = []
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 5b2b0cf8721582556c5001d29eca11389336a3a1
 def adicionar_treino(treinos, nome, tipo, data, duracao, intensidade):
     treino = {
         "id": len(treinos) + 1, "nome": nome, "tipo": tipo, "data": data, "duracao": duracao, "intensidade": intensidade
@@ -67,23 +59,14 @@ def excluir_treinos(treinos, id):
     return "Não existe treino com esse ID "
 
 
-<<<<<<< HEAD
 def adicionar_exercicio(exercicios, nome, tempo, distancia, carga, repeticoes):
-=======
-def adicionar_exercicio(exercicios, nome, tempo, distancia, carga, repeticoes, data):
->>>>>>> 5b2b0cf8721582556c5001d29eca11389336a3a1
     exercicio = {
         "id": len(exercicios) + 1,
         "nome": nome,
         "tempo": tempo,
         "distancia": distancia,
         "carga": carga,
-<<<<<<< HEAD
         "repeticoes": repeticoes
-=======
-        "repeticoes": repeticoes,
-        "data": data
->>>>>>> 5b2b0cf8721582556c5001d29eca11389336a3a1
     }
     exercicios.append(exercicio)
     return "Exercício adicionado com sucesso!"
@@ -100,10 +83,6 @@ def listar_exercicio(exercicios):
             print(f"Distância  : {e['distancia']}")
             print(f"Carga      : {e['carga']}")
             print(f"Repetições : {e['repeticoes']}")
-<<<<<<< HEAD
-=======
-            print(f"Data       : {e['data']}")
->>>>>>> 5b2b0cf8721582556c5001d29eca11389336a3a1
 
 
 def exercicio_por_id(exercicios, id):
@@ -117,20 +96,12 @@ def exercicio_por_id(exercicios, id):
             print(f"Distância  : {e['distancia']}")
             print(f"Carga      : {e['carga']}")
             print(f"Repetições : {e['repeticoes']}")
-<<<<<<< HEAD
-=======
-            print(f"Data       : {e['data']}")
->>>>>>> 5b2b0cf8721582556c5001d29eca11389336a3a1
             print("-" * 40)
             return
     print("Não existe exercício com esse ID.")
 
 
-<<<<<<< HEAD
 def editar_exercicio(exercicios, id, nome, tempo, distancia, carga, repeticoes):
-=======
-def editar_exercicio(exercicios, id, nome, tempo, distancia, carga, repeticoes, data):
->>>>>>> 5b2b0cf8721582556c5001d29eca11389336a3a1
     for i in range(len(exercicios)):
         if exercicios[i]["id"] == id:
             exercicios[i]["nome"] = nome
@@ -138,10 +109,6 @@ def editar_exercicio(exercicios, id, nome, tempo, distancia, carga, repeticoes, 
             exercicios[i]["distancia"] = distancia
             exercicios[i]["carga"] = carga
             exercicios[i]["repeticoes"] = repeticoes
-<<<<<<< HEAD
-=======
-            exercicios[i]["data"] = data
->>>>>>> 5b2b0cf8721582556c5001d29eca11389336a3a1
             return "Exercício editado com sucesso!"
     return "Não existe Exercício com esse ID"
 
@@ -154,11 +121,7 @@ def excluir_exercicio(exercicios, id):
     return "Não existe exercício com esse ID."
 
 
-<<<<<<< HEAD
 def cadastrar_competicao(competicoes, competicao, data, local, categoria):
-=======
-def cadastrar_competicao(competicoes, data, local, categoria):
->>>>>>> 5b2b0cf8721582556c5001d29eca11389336a3a1
     competicao = {
         "id": len(competicoes) + 1,
         "local": local,
@@ -174,15 +137,9 @@ def listar_competicoes(competicoes):
         print("Nenhuma competição cadastrada")
     else:
         for t in competicoes:
-<<<<<<< HEAD
             print(f"id         : {t['id']}")
             print(f"local      : {t['local']}")
             print(f"categoria  : {t['categoria']}")
-=======
-            print(f"ID         : {t['id']}")
-            print(f"Local      : {t['local']}")
-            print(f"Categoria  : {t['categoria']}")
->>>>>>> 5b2b0cf8721582556c5001d29eca11389336a3a1
             print(f"Data       : {t['data']}")
 
 
@@ -192,7 +149,6 @@ def competicao_por_id(competicoes, id):
             e = competicoes[i]
             print("-" * 40)
             print(f"ID         : {e['id']}")
-<<<<<<< HEAD
             print(f"local       : {e['local']}")
             print(f"categoria   : {e['categoria']}")
             print(f"data        : {e['data']}")
@@ -201,7 +157,6 @@ def competicao_por_id(competicoes, id):
     print("Não existe competição com esse ID. ")
 
 
-# CORRIGIDO: era "range(len(exercicios))" — lista errada
 def excluir_competicao(competicoes, id):
     for i in range(len(competicoes)):
         if competicoes[i]["id"] == id:
@@ -210,134 +165,121 @@ def excluir_competicao(competicoes, id):
     return "Não existe competição com esse ID."
 
 
-while True:
-    print("1- Adicionar Treino\n2- Listar treinos\n3- Buscar treino Por Id\n4- Editar treino\n5- Excluir Treino\n6- Adicionar Exercício\n7- Listar Exercícios\n8- Buscar Exercício por ID\n9- Editar Exercício\n10- Excluir Exercício\n11- Adicionar Competição\n12- Listar Competições\n13- Buscar Competição por ID\n14- Excluir Competição\n0- ENCERRAR ")
-
-=======
-            print(f"Local      : {e['local']}")
-            print(f"Categoria  : {e['categoria']}")
-            print(f"Data       : {e['data']}")
-            print("-" * 40)
-            return
-    print("Não existe competição com esse ID.")
-
-
-def resumo_evolucao(treinos, exercicios):
-    if len(treinos) == 0 and len(exercicios) == 0:
-        print("Nenhum dado registrado.")
+def resumo_frequencia_treinos(treinos):
+    print("\nFREQUÊNCIA DE TREINOS\n")
+    if len(treinos) == 0:
+        print("Nenhum treino cadastrado.")
         return
 
-    print("===== RESUMO DE EVOLUÇÃO =====")
+    total = len(treinos)
+    print(f"Total de treinos realizados: {total}")
 
-    if len(treinos) > 0:
-        print(f"Total de treinos: {len(treinos)}")
+    tipos = {}
+    for i in range(len(treinos)):
+        tipo = treinos[i]["tipo"]
+        if tipo in tipos:
+            tipos[tipo] += 1
+        else:
+            tipos[tipo] = 1
 
-        tipos = {}
-        for t in treinos:
-            if t["tipo"] in tipos:
-                tipos[t["tipo"]] += 1
-            else:
-                tipos[t["tipo"]] = 1
-        for tipo, quantidade in tipos.items():
-            print(f"{tipo}: {quantidade} treino(s)")
+    print("\nTreinos por tipo:")
+    for tipo in tipos:
+        print(f"  {tipo}: {tipos[tipo]} treino(s)")
 
-        total_duracao = 0
-        for t in treinos:
-            total_duracao += t["duracao"]
-        print(f"Duração média dos treinos: {total_duracao / len(treinos):.1f} minutos")
+    duracao_total = 0
+    for i in range(len(treinos)):
+        duracao_total += treinos[i]["duracao"]
+    duracao_media = duracao_total / total
 
-        datas = []
-        for t in treinos:
-            try:
-                datas.append((datetime.strptime(t["data"], "%d/%m/%Y"), t["nome"]))
-            except ValueError:
-                pass
-        if len(datas) > 0:
-            datas.sort()
-            print(f"Primeiro treino: {datas[0][1]} em {datas[0][0].strftime('%d/%m/%Y')}")
-            print(f"Ultimo treino: {datas[-1][1]} em {datas[-1][0].strftime('%d/%m/%Y')}")
+    print(f"\nDuração total: {duracao_total} minutos")
+    print(f"Duração média por treino: {duracao_media:.1f} minutos")
 
-            data_inicio = datas[0][0]
-            data_fim = datas[-1][0]
-            diferenca_dias = (data_fim - data_inicio).days
 
-            if diferenca_dias > 0:
-                semanas = diferenca_dias / 7
-                meses = diferenca_dias / 30
+def resumo_evolucao_exercicios(exercicios):
+    print("\nEVOLUÇÃO DOS EXERCÍCIOS\n")
+    if len(exercicios) == 0:
+        print("Nenhum exercício cadastrado.")
+        return
 
-                frequencia_semanal = len(datas) / semanas
-                frequencia_mensal = len(datas) / meses
+    agrupados = {}
+    for i in range(len(exercicios)):
+        nome = exercicios[i]["nome"]
+        if nome not in agrupados:
+            agrupados[nome] = []
+        agrupados[nome].append(exercicios[i])
 
-                print(f"\nFrequência de treinos:")
-                print(f"  Período registrado   : {diferenca_dias} dia(s)")
-                print(f"  Média por semana     : {frequencia_semanal:.1f} treino(s)")
-                print(f"  Média por mês        : {frequencia_mensal:.1f} treino(s)")
-            else:
-                print(f"\nFrequência de treinos:")
-                print(f"  Todos os treinos foram registrados no mesmo dia.")
+    for nome in agrupados:
+        grupo = agrupados[nome]
+        print(f"\nExercício: {nome} ({len(grupo)} registro(s))")
 
-    if len(exercicios) > 0:
-        grupos = {}
-        for e in exercicios:
-            if e["nome"] not in grupos:
-                grupos[e["nome"]] = []
-            try:
-                grupos[e["nome"]].append((datetime.strptime(e["data"], "%d/%m/%Y"), e))
-            except ValueError:
-                pass
+        if len(grupo) == 1:
+            e = grupo[0]
+            print(f"  Tempo       : {e['tempo']} min")
+            print(f"  Distância   : {e['distancia']} m")
+            print(f"  Carga       : {e['carga']} kg")
+            print(f"  Repetições  : {e['repeticoes']}")
+        else:
+            primeiro = grupo[0]
+            ultimo = grupo[len(grupo) - 1]
 
-        print("\nEvolucao por exercicio:")
-        for nome, registros in grupos.items():
-            if len(registros) < 2:
-                continue
-            registros.sort()
-            primeiro = registros[0][1]
-            ultimo = registros[-1][1]
+            var_tempo = ultimo["tempo"] - primeiro["tempo"]
+            sinal_tempo = "↓" if var_tempo < 0 else "↑" if var_tempo > 0 else "="
+            print(f"  Tempo       : {primeiro['tempo']} min → {ultimo['tempo']} min  {sinal_tempo} ({var_tempo:+} min)")
 
-            print(f"\n  {nome}")
+            var_dist = ultimo["distancia"] - primeiro["distancia"]
+            sinal_dist = "↑" if var_dist > 0 else "↓" if var_dist < 0 else "="
+            print(f"  Distância   : {primeiro['distancia']} m → {ultimo['distancia']} m  {sinal_dist} ({var_dist:+} m)")
 
-            data_inicio_ex = registros[0][0]
-            data_fim_ex = registros[-1][0]
-            diferenca_dias_ex = (data_fim_ex - data_inicio_ex).days
-            print(f"  Período: {diferenca_dias_ex} dia(s) ({data_inicio_ex.strftime('%d/%m/%Y')} até {data_fim_ex.strftime('%d/%m/%Y')})")
+            var_carga = ultimo["carga"] - primeiro["carga"]
+            sinal_carga = "↑" if var_carga > 0 else "↓" if var_carga < 0 else "="
+            print(f"  Carga       : {primeiro['carga']} kg → {ultimo['carga']} kg  {sinal_carga} ({var_carga:+} kg)")
 
-            diff_carga = ultimo["carga"] - primeiro["carga"]
-            if diff_carga > 0:
-                print(f"  Carga: {primeiro['carga']} kg -> {ultimo['carga']} kg (+{diff_carga} kg)")
-            elif diff_carga < 0:
-                print(f"  Carga: {primeiro['carga']} kg -> {ultimo['carga']} kg ({diff_carga} kg)")
-            else:
-                print(f"  Carga: {primeiro['carga']} kg (sem alteracao)")
+            var_rep = ultimo["repeticoes"] - primeiro["repeticoes"]
+            sinal_rep = "↑" if var_rep > 0 else "↓" if var_rep < 0 else "="
+            print(f"  Repetições  : {primeiro['repeticoes']} → {ultimo['repeticoes']}  {sinal_rep} ({var_rep:+})")
 
-            diff_tempo = ultimo["tempo"] - primeiro["tempo"]
-            if diff_tempo < 0:
-                print(f"  Tempo: {primeiro['tempo']} min -> {ultimo['tempo']} min (melhorou {abs(diff_tempo)} min)")
-            elif diff_tempo > 0:
-                print(f"  Tempo: {primeiro['tempo']} min -> {ultimo['tempo']} min (+{diff_tempo} min)")
-            else:
-                print(f"  Tempo: {primeiro['tempo']} min (sem alteracao)")
+            melhor_carga = grupo[0]["carga"]
+            for i in range(len(grupo)):
+                if grupo[i]["carga"] > melhor_carga:
+                    melhor_carga = grupo[i]["carga"]
+            print(f"  Maior carga registrada: {melhor_carga} kg")
 
-            diff_rep = ultimo["repeticoes"] - primeiro["repeticoes"]
-            if diff_rep > 0:
-                print(f"  Repeticoes: {primeiro['repeticoes']} -> {ultimo['repeticoes']} (+{diff_rep})")
-            elif diff_rep < 0:
-                print(f"  Repeticoes: {primeiro['repeticoes']} -> {ultimo['repeticoes']} ({diff_rep})")
-            else:
-                print(f"  Repeticoes: {primeiro['repeticoes']} (sem alteracao)")
 
-            diff_dist = ultimo["distancia"] - primeiro["distancia"]
-            if diff_dist > 0:
-                print(f"  Distancia: {primeiro['distancia']} m -> {ultimo['distancia']} m (+{diff_dist} m)")
-            elif diff_dist < 0:
-                print(f"  Distancia: {primeiro['distancia']} m -> {ultimo['distancia']} m ({diff_dist} m)")
-            else:
-                print(f"  Distancia: {primeiro['distancia']} m (sem alteracao)")
-            print()
+def resumo_competicoes(competicoes):
+    print("\nRESUMO DE COMPETIÇÕES\n")
+    if len(competicoes) == 0:
+        print("Nenhuma competição cadastrada.")
+        return
+
+    print(f"Total de competições: {len(competicoes)}")
+
+    categorias = {}
+    for i in range(len(competicoes)):
+        cat = competicoes[i]["categoria"]
+        if cat in categorias:
+            categorias[cat] += 1
+        else:
+            categorias[cat] = 1
+
+    print("\nCompetições por categoria:")
+    for cat in categorias:
+        print(f"  {cat}: {categorias[cat]} competição(ões)")
+
+    print("\nLocais:")
+    for i in range(len(competicoes)):
+        print(f"  - {competicoes[i]['local']} ({competicoes[i]['data']})")
+
+
+def resumo_completo(treinos, exercicios, competicoes):
+    print("\nRESUMO DE EVOLUÇÃO DO ATLETA")
+    resumo_frequencia_treinos(treinos)
+    resumo_evolucao_exercicios(exercicios)
+    resumo_competicoes(competicoes)
 
 
 while True:
-    print("1- Adicionar Treino\n2- Listar treinos\n3- Buscar treino Por Id\n4- Editar treino\n5- Excluir Treino\n6- Adicionar Exercício\n7- Listar Exercícios\n8- Buscar Exercício por ID\n9- Editar Exercício\n10- Excluir Exercício\n11- Adicionar Competição\n12- Listar Competições\n13- Buscar Competição por ID\n14- Resumo de Evolução\n0- ENCERRAR ")
->>>>>>> 5b2b0cf8721582556c5001d29eca11389336a3a1
+    print("1- Adicionar Treino\n2- Listar treinos\n3- Buscar treino Por Id\n4- Editar treino\n5- Excluir Treino\n6- Adicionar Exercício\n7- Listar Exercícios\n8- Buscar Exercício por ID\n9- Editar Exercício\n10- Excluir Exercício\n11- Adicionar Competição\n12- Listar Competições\n13- Buscar Competição por ID\n14- Excluir Competição\n15- Resumo de Evolução do Atleta\n0- ENCERRAR ")
+
     try:
         escolha_menu = int(input("Escolha uma opção: "))
     except ValueError:
@@ -433,18 +375,7 @@ while True:
                 break
             except ValueError:
                 print("Digite apenas números")
-<<<<<<< HEAD
         print(adicionar_exercicio(exercicios, nome, tempo, distancia, carga, repeticoes))
-=======
-        while True:
-            data = input("Data (Dia/Mes/Ano): ")
-            try:
-                datetime.strptime(data, "%d/%m/%Y")
-                break
-            except ValueError:
-                print("Formato inválido")
-        print(adicionar_exercicio(exercicios, nome, tempo, distancia, carga, repeticoes, data))
->>>>>>> 5b2b0cf8721582556c5001d29eca11389336a3a1
 
     elif escolha_menu == 7:
         listar_exercicio(exercicios)
@@ -452,11 +383,7 @@ while True:
     elif escolha_menu == 8:
         try:
             id = int(input("Digite o id do exercício que deseja pesquisar: "))
-<<<<<<< HEAD
             exercicio_por_id(exercicios, id)
-=======
-            print(exercicio_por_id(exercicios, id))
->>>>>>> 5b2b0cf8721582556c5001d29eca11389336a3a1
         except ValueError:
             print("Digite apenas números")
 
@@ -488,18 +415,7 @@ while True:
                     break
                 except ValueError:
                     print("Digite apenas números")
-<<<<<<< HEAD
             print(editar_exercicio(exercicios, id, nome, tempo, distancia, carga, repeticoes))
-=======
-            while True:
-                data = input("Digite a nova data do exercicio (Dia/Mes/Ano): ")
-                try:
-                    datetime.strptime(data, "%d/%m/%Y")
-                    break
-                except ValueError:
-                    print("Formato inválido")
-            print(editar_exercicio(exercicios, id, nome, tempo, distancia, carga, repeticoes, data))
->>>>>>> 5b2b0cf8721582556c5001d29eca11389336a3a1
         except ValueError:
             print("Digite apenas números")
 
@@ -511,11 +427,7 @@ while True:
             print("Digite apenas números")
 
     elif escolha_menu == 11:
-<<<<<<< HEAD
         local = input("Digite o Local da competição: ")
-=======
-        local = input("Digite o local da competição: ")
->>>>>>> 5b2b0cf8721582556c5001d29eca11389336a3a1
         categoria = input("Digite a categoria da competição: ")
         while True:
             data = input("Digite a data da competição (Dia/Mês/Ano): ")
@@ -524,11 +436,7 @@ while True:
                 break
             except ValueError:
                 print("Formato inválido. Tente novamente.")
-<<<<<<< HEAD
         print(cadastrar_competicao(competicoes, None, data, local, categoria))
-=======
-        print(cadastrar_competicao(competicoes, data, local, categoria))
->>>>>>> 5b2b0cf8721582556c5001d29eca11389336a3a1
 
     elif escolha_menu == 12:
         listar_competicoes(competicoes)
@@ -540,18 +448,30 @@ while True:
         except ValueError:
             print("Digite apenas números")
 
-<<<<<<< HEAD
-    # CORRIGIDO: opção 14 chamava competicao_por_id em vez de excluir_competicao
     elif escolha_menu == 14:
         try:
             id = int(input("Digite o ID da competição para excluir: "))
             print(excluir_competicao(competicoes, id))
         except ValueError:
             print("Digite apenas números")
-=======
-    elif escolha_menu == 14:
-        resumo_evolucao(treinos, exercicios)
->>>>>>> 5b2b0cf8721582556c5001d29eca11389336a3a1
+
+    elif escolha_menu == 15:
+        print("Deseja ver qual parte do resumo?")
+        print("1- Resumo completo\n2- Frequência de treinos\n3- Evolução dos exercícios\n4- Resumo de competições")
+        try:
+            escolha_resumo = int(input("Escolha uma opção: "))
+            if escolha_resumo == 1:
+                resumo_completo(treinos, exercicios, competicoes)
+            elif escolha_resumo == 2:
+                resumo_frequencia_treinos(treinos)
+            elif escolha_resumo == 3:
+                resumo_evolucao_exercicios(exercicios)
+            elif escolha_resumo == 4:
+                resumo_competicoes(competicoes)
+            else:
+                print("Opção inválida.")
+        except ValueError:
+            print("Digite apenas números")
 
     else:
         print("Opção inválida. Digite outra opção.")
