@@ -1,0 +1,32 @@
+========================================
+       HYROX PLANNER — DADOS
+========================================
+
+TREINOS
+----------------------------------------
+ID         : 1
+Nome       : peito
+Tipo       : força
+Data       : 16/06/2007
+Duração    : 23 minutos
+Intensidade: forte
+----------------------------------------
+ID         : 2
+Nome       : perna
+Tipo       : forca
+Data       : 16/06/2025
+Duração    : 23 minutos
+Intensidade: forte
+----------------------------------------
+
+EXERCÍCIOS
+----------------------------------------
+Nenhum exercício cadastrado.
+
+COMPETIÇÕES
+----------------------------------------
+Nenhuma competição cadastrada.
+
+========================================
+Atualizado em: 07/06/2026 às 17:09
+========================================

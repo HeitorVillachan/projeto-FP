@@ -1,5 +1,10 @@
 import os
 from datetime import datetime
+try:
+    import ollama
+    IA_DISPONIVEL = True
+except ImportError:
+    IA_DISPONIVEL = False
 
 treinos = []
 exercicios = []
@@ -119,7 +124,8 @@ def carregar_dados():
 
 def adicionar_treino(treinos, nome, tipo, data, duracao, intensidade):
     treino = {
-        "id": len(treinos) + 1, "nome": nome, "tipo": tipo, "data": data, "duracao": duracao, "intensidade": intensidade
+        "id": len(treinos) + 1, "nome": nome, "tipo": tipo, "data": data,
+        "duracao": duracao, "intensidade": intensidade
     }
     treinos.append(treino)
     salvar_dados()
@@ -178,12 +184,8 @@ def excluir_treinos(treinos, id):
 def adicionar_exercicio(exercicios, nome, tempo, distancia, carga, repeticoes, data):
     exercicio = {
         "id": len(exercicios) + 1,
-        "nome": nome,
-        "tempo": tempo,
-        "distancia": distancia,
-        "carga": carga,
-        "repeticoes": repeticoes,
-        "data": data
+        "nome": nome, "tempo": tempo, "distancia": distancia,
+        "carga": carga, "repeticoes": repeticoes, "data": data
     }
     exercicios.append(exercicio)
     salvar_dados()
@@ -247,9 +249,7 @@ def excluir_exercicio(exercicios, id):
 def cadastrar_competicao(competicoes, data, local, categoria):
     competicao = {
         "id": len(competicoes) + 1,
-        "local": local,
-        "categoria": categoria,
-        "data": data
+        "local": local, "categoria": categoria, "data": data
     }
     competicoes.append(competicao)
     salvar_dados()
@@ -443,6 +443,127 @@ def resumo_completo(treinos, exercicios, competicoes):
     resumo_competicoes(competicoes)
 
 
+
+def sugerir_treino_ia(treinos, exercicios, nivel_atleta):
+    if not IA_DISPONIVEL:
+        print("\n[ERRO] A biblioteca 'ollama' não está instalada.")
+        print("Execute: pip install ollama")
+        return
+
+    if treinos:
+        linhas_treinos = "\n".join([
+            f"- {t['nome']} | tipo: {t['tipo']} | {t['duracao']}min | intensidade: {t['intensidade']}"
+            for t in treinos[-10:]
+        ])
+    else:
+        linhas_treinos = "Nenhum treino registrado ainda."
+
+    if exercicios:
+        linhas_exercicios = "\n".join([
+            f"- {e['nome']} | carga: {e['carga']}kg | reps: {e['repeticoes']} | distância: {e['distancia']}m"
+            for e in exercicios[-10:]
+        ])
+    else:
+        linhas_exercicios = "Nenhum exercício registrado ainda."
+
+    prompt = f"""Você é um coach especialista em HYROX.
+Nível do atleta: {nivel_atleta}
+
+Histórico de treinos:
+{linhas_treinos}
+
+Histórico de exercícios:
+{linhas_exercicios}
+
+Forneça:
+1. divisao de treinos adequada ao nível {nivel_atleta}
+2. divisão semanal, cargas
+ideais e estratégias para melhorar o desempenho em cada etapa do HYROX.
+3. 3 ESTRATÉGIAS para melhorar na próxima competição
+
+Seja direto e objetivo."""
+
+    print("-" * 40)
+
+    try:
+        resposta = ollama.chat(
+            model="llama3.2",
+            messages=[{"role": "user", "content": prompt}]
+        )
+        print(resposta["message"]["content"])
+    except Exception as e:
+        print(f"[ERRO] {e}")
+        print("Certifique-se que o Ollama está rodando.")
+
+    print("-" * 40)
+
+def chat_hyrox_ia(treinos, exercicios):
+
+    if not IA_DISPONIVEL:
+        print("\n[ERRO] A biblioteca 'ollama' não está instalada.")
+        print("Execute: pip install ollama")
+        return
+
+    if treinos:
+        linhas_treinos = "\n".join([
+            f"- {t['nome']} | tipo: {t['tipo']} | {t['duracao']}min | intensidade: {t['intensidade']}"
+            for t in treinos[-10:]
+        ])
+    else:
+        linhas_treinos = "Nenhum treino registrado ainda."
+
+    if exercicios:
+        linhas_exercicios = "\n".join([
+            f"- {e['nome']} | carga: {e['carga']}kg | reps: {e['repeticoes']} | distância: {e['distancia']}m"
+            for e in exercicios[-10:]
+        ])
+    else:
+        linhas_exercicios = "Nenhum exercício registrado ainda."
+
+    print("\n=== COACH HYROX IA ===")
+    print("Digite 'sair' para voltar ao menu.\n")
+
+    while True:
+
+        pergunta = input("Você: ")
+
+        if pergunta.lower() == "sair":
+            break
+
+        prompt = f"""
+Você é um coach especialista em HYROX.
+
+Histórico de treinos:
+{linhas_treinos}
+
+Histórico de exercícios:
+{linhas_exercicios}
+
+Responda apenas perguntas relacionadas a HYROX, corrida, força, resistência, exercícios físicos, recuperação e competições.
+
+Pergunta:
+{pergunta}
+"""
+
+        try:
+            resposta = ollama.chat(
+                model="llama3.2",
+                messages=[
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ]
+            )
+
+            print("\nCoach HYROX:")
+            print(resposta["message"]["content"])
+            print()
+
+        except Exception as e:
+            print(f"\n[ERRO] {e}")
+            print("Certifique-se que o Ollama está rodando.")
+            break
 def menu_treinos():
     while True:
         print("\nTREINOS\n1- Adicionar\n2- Listar\n3- Buscar por ID\n4- Editar\n5- Excluir\n0- Voltar")
@@ -560,17 +681,14 @@ def menu_exercicios():
                 except ValueError:
                     print("Formato inválido")
             print(adicionar_exercicio(exercicios, nome, tempo, distancia, carga, repeticoes, data))
-
         elif op == 2:
             listar_exercicio(exercicios)
-
         elif op == 3:
             try:
                 id = int(input("Digite o ID do exercício: "))
                 exercicio_por_id(exercicios, id)
             except ValueError:
                 print("Digite apenas números")
-
         elif op == 4:
             try:
                 id = int(input("Digite o ID do exercício que deseja editar: "))
@@ -609,14 +727,12 @@ def menu_exercicios():
                 print(editar_exercicio(exercicios, id, nome, tempo, distancia, carga, repeticoes, data))
             except ValueError:
                 print("Digite apenas números")
-
         elif op == 5:
             try:
                 id = int(input("Digite o ID do exercício que deseja excluir: "))
                 print(excluir_exercicio(exercicios, id))
             except ValueError:
                 print("Digite apenas números")
-
         elif op == 0:
             break
         else:
@@ -643,24 +759,20 @@ def menu_competicoes():
                 except ValueError:
                     print("Formato inválido. Tente novamente.")
             print(cadastrar_competicao(competicoes, data, local, categoria))
-
         elif op == 2:
             listar_competicoes(competicoes)
-
         elif op == 3:
             try:
                 id = int(input("Digite o ID da competição: "))
                 competicao_por_id(competicoes, id)
             except ValueError:
                 print("Digite apenas números")
-
         elif op == 4:
             try:
                 id = int(input("Digite o ID da competição que deseja excluir: "))
                 print(excluir_competicao(competicoes, id))
             except ValueError:
                 print("Digite apenas números")
-
         elif op == 0:
             break
         else:
@@ -669,7 +781,7 @@ def menu_competicoes():
 
 def menu_resumo():
     while True:
-        print("\nRESUMO\n1- Resumo completo\n2- Frequência de treinos\n3- Evolução dos exercícios\n4- Resumo de competições\n0- Voltar")
+        print("\nRESUMO\n1- Resumo completo\n2- Frequência de treinos\n3- Evolução dos exercícios\n4- Resumo de competições\n5- Sugestão de treino com IA\n0- Voltar")
         try:
             op = int(input("Escolha uma opção: "))
         except ValueError:
@@ -684,6 +796,20 @@ def menu_resumo():
             resumo_evolucao_exercicios(exercicios)
         elif op == 4:
             resumo_competicoes(competicoes)
+        elif op == 5:
+            print("\nQual é o nível do atleta?")
+            print("1- Iniciante\n2- Intermediário\n3- Avançado")
+            try:
+                nivel_op = int(input("Escolha: "))
+            except ValueError:
+                print("Digite apenas números")
+                continue
+            niveis = {1: "iniciante", 2: "intermediário", 3: "avançado"}
+            nivel = niveis.get(nivel_op)
+            if nivel is None:
+                print("Opção inválida.")
+                continue
+            sugerir_treino_ia(treinos, exercicios, nivel)
         elif op == 0:
             break
         else:
@@ -693,7 +819,7 @@ def menu_resumo():
 carregar_dados()
 
 while True:
-    print("\nMENU PRINCIPAL\n1- Treinos\n2- Exercícios\n3- Competições\n4- Resumo de Evolução\n0- Encerrar")
+    print("\nMENU PRINCIPAL\n1- Treinos\n2- Exercícios\n3- Competições\n4- Resumo de Evolução\n5-Entrar no chat com IA HYROX\n0- Encerrar")
     try:
         escolha_menu = int(input("Escolha uma opção: "))
     except ValueError:
@@ -708,8 +834,10 @@ while True:
         menu_competicoes()
     elif escolha_menu == 4:
         menu_resumo()
+    elif escolha_menu == 5:
+        chat_hyrox_ia(treinos, exercicios)
     elif escolha_menu == 0:
-        print("Encerrando o programa. Dados salvos.")
+        print("Encerrando o programa")
         salvar_dados()
         break
     else:
