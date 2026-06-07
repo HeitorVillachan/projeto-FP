@@ -18,6 +18,13 @@ Data       : 16/06/2026
 Duração    : 34 minutos
 Intensidade: leve
 ----------------------------------------
+ID         : 3
+Nome       : supino
+Tipo       : força
+Data       : 07/06/2026
+Duração    : 45 minutos
+Intensidade: forte
+----------------------------------------
 
 EXERCÍCIOS
 ----------------------------------------
@@ -28,5 +35,5 @@ COMPETIÇÕES
 Nenhuma competição cadastrada.
 
 ========================================
-Atualizado em: 07/06/2026 às 17:20
+Atualizado em: 07/06/2026 às 17:31
 ========================================
